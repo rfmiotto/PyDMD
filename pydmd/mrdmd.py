@@ -135,6 +135,19 @@ class MrDMD(DMDBase):
         indexes = np.sort(indexes)
         return indexes
 
+    def time_window_modes(self, t0, tend):
+        """
+        Get the modes from the bins embedded (partially or totally) in a given
+        time window.
+
+        :param float t0: start time of the window.
+        :param float tend: end time of the window.
+        :return: the modes (columnwise) for that time window.
+        :rtype: numpy.ndarray
+        """
+        indexes = self.time_window_bins(t0, tend)
+        return np.hstack(tuple([self._modes[idx] for idx in indexes]))
+
     def time_window_eigs(self, t0, tend):
         """
         Get the eigenvalues relative to the modes of the bins embedded (partially

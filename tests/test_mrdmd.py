@@ -122,6 +122,12 @@ class TestMrDmd(TestCase):
         comparison = dmd.time_window_bins(1, 3) == np.array([0, 1, 2, 4, 5])
         assert comparison.all()
 
+    def test_time_window_modes(self):
+        level = 3
+        dmd = MrDMD(svd_rank=1, max_level=level, max_cycles=2)
+        dmd.fit(X=sample_data)
+        assert dmd.time_window_modes(0, dmd._snapshots.shape[1]).shape[1] == 7
+
     def test_time_window_eigs(self):
         level = 3
         dmd = MrDMD(svd_rank=1, max_level=level, max_cycles=2)
